@@ -1,0 +1,20 @@
+{
+  "name": "infinite-scroll-with-back",
+  "version": "1.0.0",
+  "description": "A products page that allows for infinite scrolling, clicking on a product, hitting Back, and loading up the proper scroll position and products you were viewing.",
+  "main": "index.html",
+  "scripts": {
+    "start": "parcel serve index.html --open",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "extend": "^3.0.2",
+    "waypoints": "4.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "7.2.0",
+    "parcel-bundler": "^1.6.1"
+  },
+  "keywords": []
+}
