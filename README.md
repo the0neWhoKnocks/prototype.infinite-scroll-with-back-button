@@ -33,6 +33,10 @@ Things to note:
 - The `Go Back` button on the PDP utilizes `history.back()` to emulate what the
 Browser would do. You can click on the Browser's Back button and still get the
 same results.
+- There is a simulated delay during the reloading of pages. For every page that
+is being loaded, an extra `100` milliseconds is added to simulate a possible
+Network bottleneck that may occur in a Production scenario.
+  - This simulated delay can be disabled by adding the query param `?no-delay`.
 - The animated scrolling that occurs after the previous data has loaded is done
   so via this CSS rule:
   ```css
