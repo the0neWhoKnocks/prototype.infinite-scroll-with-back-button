@@ -23,11 +23,11 @@ simple data payload:
 }
 ```
 
-| Prop | Type | What They Do |
-| ---- | ---- | ------------ |
-| `pages` | `Array` | As a user scrolls and new pages are requested, this Array gets updated with a resource that aids in reloading that same page's data. In this repo, it's just keeping track of the page number, but in a Production scenario it would most likely keep track of URLs that would return a data payload. When a User navigates away from the Infinite Scroll page and then back, if this Array has content it'll iterate over the Array and reload all previously loaded pages that were in view when the User navigated away. |
-| `pageHeight` | `String` or `Number` | The full current scroll height of the page before the User navigated away from the page. When a User navigates back to the Infinite Scroll page, the page's height will be set to what it was so that the scroll position can be updated. |
-| `scrollTop` | `Number` | The current scroll position before the User navigated away. On return to the Infinite Scroll page, after the height of the page is adjusted, the scroll position will be set back to this value. |
+| Prop | Type | Default | What They Do |
+| ---- | ---- | ------- | ------------ |
+| `pages` | `Array` | `[]` | As a user scrolls and new pages are requested, this Array gets updated with a resource that aids in reloading that same page's data. In this repo, it's just keeping track of the page number, but in a Production scenario it would most likely keep track of URLs that would return a data payload. When a User navigates away from the Infinite Scroll page and then back, if this Array has content it'll iterate over the Array and reload all previously loaded pages that were in view when the User navigated away. |
+| `pageHeight` | `String` or `Number` | `'auto'` |  The full current scroll height of the page before the User navigated away from the page. When a User navigates back to the Infinite Scroll page, the page's height will be set to what it was so that the scroll position can be updated. |
+| `scrollTop` | `Number` | `0` | The current scroll position before the User navigated away. On return to the Infinite Scroll page, after the height of the page is adjusted, the scroll position will be set back to this value. |
 
 Things to note:
 - The `Go Back` button on the PDP utilizes `history.back()` to emulate what the
