@@ -23,6 +23,7 @@ if (window.location.search.includes('product')) {
 } 
 // ROUTE = Wall
 else {
+  const DELAY_ENABLED = !window.location.search.includes('no-delay');
   const DEFAULT_STATE = {
     infiniteScroll: {
       pages: [],
@@ -105,25 +106,32 @@ else {
         document.body.style.height = `${pageHeight}px`;
       }
       
-      
-      
-      const spinnerDelay = setTimeout(() => {
-        document.body.classList.add('loading');
-      }, 300);
+      let spinnerDelay
+      if (DELAY_ENABLED) {
+        spinnerDelay = setTimeout(() => {
+          document.body.classList.add('loading');
+        }, 300);
+      }
       
       // NOTE - The below is emulating a possible lag while loading all pages.
       Promise.all(pages.map(() => {
         return Promise.resolve().then(() => new Promise((resolvePageLoad) => {
-          setTimeout(() => {
+          if (DELAY_ENABLED) {
+            setTimeout(() => {
+              handleLoadMoreWaypoint('down');
+              resolvePageLoad();
+            }, 100 * pages.length);
+          }
+          else {
             handleLoadMoreWaypoint('down');
             resolvePageLoad();
-          }, 100 * pages.length);
+          }
         }));
       }))
       .then(() => {
         window.scrollTo(0, scrollTop);
         
-        clearTimeout(spinnerDelay);
+        if (spinnerDelay !== undefined) clearTimeout(spinnerDelay);
         document.body.classList.remove('loading');
         
         if (adjustHeight) document.body.style.height = origBodyHeight;
@@ -187,6 +195,9 @@ else {
   appEl.addEventListener('DOMSubtreeModified', emulatePostDOMLoad, { once: true });
 
   pageMarkup = wall();
+  (DELAY_ENABLED)
+    ? document.documentElement.classList.remove('disable--smooth-scroll')
+    : document.documentElement.classList.add('disable--smooth-scroll')
 }
 
 appEl.innerHTML = `
